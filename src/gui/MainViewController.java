@@ -37,7 +37,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onBtnBuscaAction() {
-		System.out.println("onMenuBuscaAction");
+		loadView("/gui/Busca.fxml");
 	}
 	
 	@FXML
