@@ -37,7 +37,7 @@
                         <Font name="Arial Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnEdicao" mnemonicParsing="false" onAction="#onBtnEdicaoAction" style="-fx-background-color: #a7a7a7;" text="Edicão/Exclusão de Entregas">
+                  <Button fx:id="btnEdicao" mnemonicParsing="false" onAction="#onBtnEdicaoAction" style="-fx-background-color: #a7a7a7;" text="Edição/Exclusão de Entregas">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -67,7 +67,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <AnchorPane prefHeight="413.0" prefWidth="534.0">
+            <AnchorPane prefHeight="418.0" prefWidth="534.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor></AnchorPane>

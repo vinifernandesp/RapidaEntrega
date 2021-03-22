@@ -42,7 +42,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onBtnEdicaoAction() {
-		System.out.println("onMenuEdicaoAction");
+		loadView("/gui/EdicaoExclusao.fxml");
 	}
 	
 	@FXML
