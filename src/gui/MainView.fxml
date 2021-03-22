@@ -1,26 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
       <VBox prefHeight="438.0" prefWidth="533.0">
          <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="Cadastrar Entregas" />
-                <Menu mnemonicParsing="false" text="Buscar Entregas" />
-                <Menu mnemonicParsing="false" text="Editar/Excluir Entregas" />
-                  <Menu mnemonicParsing="false" text="Sobre" />
-              </menus>
-            </MenuBar>
-            <AnchorPane prefHeight="413.0" prefWidth="534.0" />
+            <HBox blendMode="HARD_LIGHT" prefHeight="20.0" prefWidth="534.0" style="-fx-background-color: #a7a7a7;">
+               <children>
+                  <Button fx:id="btnCadastro" mnemonicParsing="false" onAction="#onBtnCadastroAction" style="-fx-background-color: #a7a7a7;" text="Cadastro de Entregas">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="1.0" right="10.0" top="1.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnBusca" mnemonicParsing="false" onAction="#onBtnBuscaAction" style="-fx-background-color: #a7a7a7;" text="Busca pro Entrega">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="1.0" right="10.0" top="1.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEdicao" mnemonicParsing="false" onAction="#onBtnEdicaoAction" style="-fx-background-color: #a7a7a7;" text="Edicão/Exclusão de Entregas">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="1.0" right="10.0" top="1.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSobre" mnemonicParsing="false" onAction="#onBtnSobreAction" style="-fx-background-color: #a7a7a7;" text="Sobre">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="1.0" right="10.0" top="1.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Button>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <AnchorPane prefHeight="413.0" prefWidth="534.0">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></AnchorPane>
          </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
       </VBox>
    </content>
 </ScrollPane>
