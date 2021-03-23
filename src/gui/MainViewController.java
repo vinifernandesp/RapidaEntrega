@@ -32,7 +32,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onBtnCadastroAction() {
-		System.out.println("onMenuCadastroAction");
+		loadView("/gui/Cadastro.fxml");
 	}
 	
 	@FXML

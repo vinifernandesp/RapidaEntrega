@@ -18,7 +18,11 @@
          </font>
       </Label>
       <ComboBox layoutX="14.0" layoutY="81.0" prefWidth="150.0" />
-      <TextField layoutX="174.0" layoutY="81.0" prefHeight="26.0" prefWidth="230.0" />
+      <TextField layoutX="174.0" layoutY="81.0" prefHeight="26.0" prefWidth="230.0">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </TextField>
       <Button layoutX="412.0" layoutY="81.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="107.0" text="Filtrar">
          <font>
             <Font name="Arial" size="12.0" />
