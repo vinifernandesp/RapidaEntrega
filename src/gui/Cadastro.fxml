@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="418.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="418.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadastroController">
    <children>
       <Label layoutX="14.0" layoutY="32.0" prefHeight="26.0" prefWidth="122.0" text="Localizacão:">
          <font>
@@ -20,7 +20,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="257.0" layoutY="52.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtPais" layoutX="257.0" layoutY="52.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
@@ -30,7 +30,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="257.0" layoutY="85.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtEstado" layoutX="257.0" layoutY="85.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
@@ -39,7 +39,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="257.0" layoutY="119.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtCidade" layoutX="257.0" layoutY="119.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
@@ -53,7 +53,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="256.0" layoutY="182.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtDestinatario" layoutX="256.0" layoutY="182.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
@@ -63,51 +63,51 @@
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="256.0" layoutY="215.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtRemetente" layoutX="256.0" layoutY="215.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
-      <RadioButton layoutX="101.0" layoutY="253.0" mnemonicParsing="false" text="CPF">
+      <RadioButton fx:id="rbCPF" layoutX="101.0" layoutY="253.0" mnemonicParsing="false" onAction="#onRbCPFAction" text="CPF">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="174.0" layoutY="253.0" mnemonicParsing="false" text="CNPJ">
+      <RadioButton fx:id="rbCNPJ" layoutX="174.0" layoutY="253.0" mnemonicParsing="false" onAction="#onRbCNPJAction" text="CNPJ">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <TextField layoutX="256.0" layoutY="248.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtCPF_CNPJ" layoutX="256.0" layoutY="248.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
-      <RadioButton layoutX="100.0" layoutY="286.0" mnemonicParsing="false" text="Carta">
+      <RadioButton fx:id="rbCarta" layoutX="100.0" layoutY="286.0" mnemonicParsing="false" onAction="#onRbCartaAction" text="Carta">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="256.0" layoutY="286.0" mnemonicParsing="false" text="Envelope">
+      <RadioButton fx:id="rbEnvelope" layoutX="256.0" layoutY="286.0" mnemonicParsing="false" text="Envelope">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="100.0" layoutY="317.0" mnemonicParsing="false" text="Pacote">
+      <RadioButton fx:id="rbPacote" layoutX="100.0" layoutY="317.0" mnemonicParsing="false" onAction="#onRbPacoteAction" text="Pacote">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <Spinner layoutX="256.0" layoutY="314.0" />
+      <Spinner fx:id="spinnerPeso" layoutX="256.0" layoutY="314.0" />
       <Label layoutX="414.0" layoutY="325.0" text="kg">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="377.0" prefHeight="26.0" prefWidth="107.0" text="Limpar">
+      <Button fx:id="btLimpar" layoutX="14.0" layoutY="377.0" onAction="#onBtLimparAction" prefHeight="26.0" prefWidth="107.0" text="Limpar">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="412.0" layoutY="377.0" prefHeight="26.0" prefWidth="107.0" text="Salvar">
+      <Button fx:id="btSalvar" layoutX="412.0" layoutY="377.0" onAction="#onBtSalvarAction" prefHeight="26.0" prefWidth="107.0" text="Salvar">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
