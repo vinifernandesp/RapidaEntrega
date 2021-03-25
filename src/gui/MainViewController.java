@@ -15,6 +15,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import model.service.ConsigneeService;
+import model.service.DeliveryService;
+import model.service.LocalizationService;
+import model.service.SenderService;
 
 public class MainViewController implements Initializable {
 
@@ -37,14 +41,14 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onBtnBuscaAction() {
-		loadView("/gui/Busca.fxml");
+		loadViewBusca("/gui/Busca.fxml");
 	}
-	
+
 	@FXML
 	public void onBtnEdicaoAction() {
-		loadView("/gui/EdicaoExclusao.fxml");
+		loadViewEdicaoExclusao("/gui/EdicaoExclusao.fxml");
 	}
-	
+
 	@FXML
 	public void onBtnSobreAction() {
 		loadView("/gui/Sobre.fxml");
@@ -63,7 +67,44 @@ public class MainViewController implements Initializable {
 			Alerts.showAlert("Error", null, "Erro de carregamento de Página", AlertType.ERROR);
 			e.printStackTrace();
 		}
-		
+	}
+	
+	private void loadViewBusca(String absoluteName) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			AnchorPane newPage = loader.load();
+			
+			Scene mainScene = Main.getMainScene();
+			VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			
+			mainVBox.getChildren().set(1, newPage);
+			
+			BuscaController controller = loader.getController();
+			controller.setDeliveryService(new DeliveryService(new LocalizationService(), new ConsigneeService(), new SenderService()));
+			controller.updateTableView();
+		} catch (IOException e) {
+			Alerts.showAlert("Error", null, "Erro de carregamento de Página", AlertType.ERROR);
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadViewEdicaoExclusao(String absoluteName) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			AnchorPane newPage = loader.load();
+			
+			Scene mainScene = Main.getMainScene();
+			VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			
+			mainVBox.getChildren().set(1, newPage);
+			
+			EdicaoExclusaoController controller = loader.getController();
+			controller.setDeliveryService(new DeliveryService(new LocalizationService(), new ConsigneeService(), new SenderService()));
+			controller.updateTableView();
+		} catch (IOException e) {
+			Alerts.showAlert("Error", null, "Erro de carregamento de Página", AlertType.ERROR);
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
