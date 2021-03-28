@@ -16,10 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import model.service.ConsigneeService;
 import model.service.DeliveryService;
-import model.service.LocalizationService;
-import model.service.SenderService;
 
 public class MainViewController implements Initializable {
 
@@ -43,7 +40,7 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onBtnBuscaAction() {
 		loadView("/gui/Busca.fxml", (BuscaController controller) -> {
-			controller.setDeliveryService(new DeliveryService(new LocalizationService(), new ConsigneeService(), new SenderService()));
+			controller.setDeliveryService(new DeliveryService());
 			controller.updateTableView();
 		});
 	}
@@ -51,7 +48,7 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onBtnEdicaoAction() {
 		loadView("/gui/EdicaoExclusao.fxml", (EdicaoExclusaoController controller) -> {
-			controller.setDeliveryService(new DeliveryService(new LocalizationService(), new ConsigneeService(), new SenderService()));
+			controller.setDeliveryService(new DeliveryService());
 			controller.updateTableView();
 		});
 	}

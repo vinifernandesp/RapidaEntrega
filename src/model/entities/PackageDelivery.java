@@ -8,6 +8,10 @@ public class PackageDelivery extends Delivery {
 
 	private Double weight;
 
+	public PackageDelivery() {
+		super();
+	}
+	
 	public PackageDelivery(Integer id, Localization localization, Consignee consignee, Sender sender, double weight) {
 		super(id, localization, consignee, sender);
 		super.setTypeOfDelivery(TypeOfDelivery.PACKAGE);
