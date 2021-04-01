@@ -13,4 +13,21 @@ public class LocalizationService {
 	public List<Localization> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Localization obj) {
+		if (obj.getId() == null) {
+			List<Localization> localizations = dao.findAll();
+			Localization search = localizations.stream()
+					.filter(x -> x.getCountry().compareTo(obj.getCountry()) == 0 && 
+					x.getState().compareTo(obj.getState()) == 0 &&
+					x.getCity().compareTo(obj.getCity()) == 0)
+					.findFirst().orElse(null);
+
+			if (search == null) dao.insert(obj);
+		}
+		
+		else {
+			dao.update(obj);
+		}
+	}
 }

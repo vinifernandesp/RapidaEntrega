@@ -16,7 +16,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import model.service.ConsigneeService;
 import model.service.DeliveryService;
+import model.service.LocalizationService;
+import model.service.SenderService;
 
 public class MainViewController implements Initializable {
 
@@ -34,7 +37,12 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onBtnCadastroAction() {
-		loadView("/gui/Cadastro.fxml", x -> {});
+		loadView("/gui/Cadastro.fxml", (CadastroController controller) -> {
+			controller.setSenderService(new SenderService());
+			controller.setConsigneeService(new ConsigneeService());
+			controller.setLocalizationService(new LocalizationService());
+			controller.setDeliveryService(new DeliveryService());
+		});
 	}
 	
 	@FXML

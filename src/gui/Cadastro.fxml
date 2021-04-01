@@ -77,7 +77,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <TextField fx:id="txtCPF_CNPJ" layoutX="256.0" layoutY="248.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtCPF_CNPJ" editable="false" layoutX="256.0" layoutY="248.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
@@ -86,7 +86,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbEnvelope" layoutX="256.0" layoutY="286.0" mnemonicParsing="false" text="Envelope">
+      <RadioButton fx:id="rbEnvelope" layoutX="256.0" layoutY="286.0" mnemonicParsing="false" text="Envelope" visible="false">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
@@ -96,8 +96,8 @@
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <Spinner fx:id="spinnerPeso" layoutX="256.0" layoutY="314.0" />
-      <Label layoutX="414.0" layoutY="325.0" text="kg">
+      <Spinner fx:id="spinnerPeso" editable="true" layoutX="256.0" layoutY="314.0" visible="false" />
+      <Label fx:id="labelKg" layoutX="414.0" layoutY="325.0" text="kg" visible="false">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
