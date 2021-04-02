@@ -40,59 +40,45 @@ public class DeliveryService {
 		return allDeliveries;
 	}
 
-	public void saveOrUpdatePackage(PackageDelivery obj) {
-		if (obj.getId() == null) {
-			List<Sender> senders = daoSender.findAll();
-			obj.getSender().setId(senders.stream()
-					.filter(x -> x.getName().compareTo(obj.getSender().getName()) == 0).findFirst()
-					.get().getId());
+	public void saveOrUpdate(Delivery obj) {
+		List<Sender> senders = daoSender.findAll();
+		obj.getSender().setId(senders.stream()
+				.filter(x -> x.getName().compareTo(obj.getSender().getName()) == 0).findFirst()
+				.get().getId());
 
-			List<Consignee> consignees = daoConsignee.findAll();
-			obj.getConsignee().setId(consignees.stream()
-					.filter(x -> x.getName().compareTo(obj.getConsignee().getName()) == 0 && 
-					x.getPersonIdentifier().compareTo(obj.getConsignee().getPersonIdentifier()) == 0).findFirst()
-					.get().getId());
+		List<Consignee> consignees = daoConsignee.findAll();
+		obj.getConsignee().setId(consignees.stream()
+				.filter(x -> x.getName().compareTo(obj.getConsignee().getName()) == 0 && 
+				x.getPersonIdentifier().compareTo(obj.getConsignee().getPersonIdentifier()) == 0).findFirst()
+				.get().getId());
 
-			List<Localization> localizations = daoLocalization.findAll();
-			obj.getLocalization().setId(localizations.stream()
-					.filter(x -> x.getCountry().compareTo(obj.getLocalization().getCountry()) == 0 && 
-					x.getState().compareTo(obj.getLocalization().getState()) == 0 &&
-					x.getCity().compareTo(obj.getLocalization().getCity()) == 0).findFirst()
-					.get().getId());
-
-			daoPackage.insert(obj);
+		List<Localization> localizations = daoLocalization.findAll();
+		obj.getLocalization().setId(localizations.stream()
+				.filter(x -> x.getCountry().compareTo(obj.getLocalization().getCountry()) == 0 && 
+				x.getState().compareTo(obj.getLocalization().getState()) == 0 &&
+				x.getCity().compareTo(obj.getLocalization().getCity()) == 0).findFirst()
+				.get().getId());
+		
+		if (obj instanceof PackageDelivery) {
+			PackageDelivery packageDelivery = (PackageDelivery) obj;
+		
+			if (packageDelivery.getId() == null) {
+				daoPackage.insert(packageDelivery);
+			}
+			else {
+				daoPackage.update(packageDelivery);
+			}
 		}
-
-		else {
-			daoPackage.update(obj);
-		}
-	}
-
-	public void saveOrUpdateLetter(LetterDelivery obj) {
-		if (obj.getId() == null) {
-			List<Sender> senders = daoSender.findAll();
-			obj.getSender().setId(senders.stream()
-					.filter(x -> x.getName().compareTo(obj.getSender().getName()) == 0).findFirst()
-					.get().getId());
-
-			List<Consignee> consignees = daoConsignee.findAll();
-			obj.getConsignee().setId(consignees.stream()
-					.filter(x -> x.getName().compareTo(obj.getConsignee().getName()) == 0 && 
-					x.getPersonIdentifier().compareTo(obj.getConsignee().getPersonIdentifier()) == 0).findFirst()
-					.get().getId());
-
-			List<Localization> localizations = daoLocalization.findAll();
-			obj.getLocalization().setId(localizations.stream()
-					.filter(x -> x.getCountry().compareTo(obj.getLocalization().getCountry()) == 0 && 
-					x.getState().compareTo(obj.getLocalization().getState()) == 0 &&
-					x.getCity().compareTo(obj.getLocalization().getCity()) == 0).findFirst()
-					.get().getId());
-
-			daoLetter.insert(obj);
-		}
-
-		else {
-			daoLetter.update(obj);
+		
+		else if (obj instanceof LetterDelivery) {
+			LetterDelivery letterDelivery = (LetterDelivery) obj;
+			
+			if (letterDelivery.getId() == null) {
+				daoLetter.insert(letterDelivery);
+			}
+			else {
+				daoLetter.update(letterDelivery);
+			}
 		}
 	}
 }

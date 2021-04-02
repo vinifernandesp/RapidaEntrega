@@ -1,13 +1,17 @@
 package gui;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
+import db.DbException;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.MaskFieldUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -15,7 +19,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import model.entities.Consignee;
 import model.entities.Delivery;
 import model.entities.LetterDelivery;
@@ -24,6 +27,7 @@ import model.entities.PackageDelivery;
 import model.entities.Sender;
 import model.enumerator.TypeOfDelivery;
 import model.enumerator.TypeOfPersonIdentifier;
+import model.exceptions.ValidationException;
 import model.service.ConsigneeService;
 import model.service.DeliveryService;
 import model.service.LocalizationService;
@@ -47,16 +51,31 @@ public class CadastroController implements Initializable{
 	private TextField txtPais;
 	
 	@FXML
+	private Label labelPaisError;
+	
+	@FXML
 	private TextField txtEstado;
+	
+	@FXML
+	private Label labelEstadoError;
 	
 	@FXML
 	private TextField txtCidade;
 	
 	@FXML
+	private Label labelCidadeError;
+	
+	@FXML
 	private TextField txtDestinatario;
 	
 	@FXML
+	private Label labelDestinatarioError;
+	
+	@FXML
 	private TextField txtRemetente;
+	
+	@FXML
+	private Label labelRemetenteError;
 	
 	@FXML
 	private RadioButton rbCPF;
@@ -66,6 +85,9 @@ public class CadastroController implements Initializable{
 	
 	@FXML
 	private TextField txtCPF_CNPJ;
+	
+	@FXML
+	private Label labelCPF_CNPJError;
 	
 	@FXML
 	private RadioButton rbCarta;
@@ -83,6 +105,9 @@ public class CadastroController implements Initializable{
 	private Label labelKg;
 	
 	@FXML
+	private Label labelCartaPacoteError;
+	
+	@FXML
 	private Button btLimpar;
 	
 	@FXML
@@ -91,6 +116,8 @@ public class CadastroController implements Initializable{
 	private SpinnerValueFactory<Double> spinnerValue;
 	private ToggleGroup groupCPF_CNPJ;
 	private ToggleGroup groupCartaPacote;
+	
+	private ValidationException exception;
 
 	public void setSender(Sender sender) {
 		this.sender = sender;
@@ -163,25 +190,39 @@ public class CadastroController implements Initializable{
 	
 	@FXML
 	public void onBtSalvarAction() {
-		sender = getFormDataSender();
-		consignee = getFormDataConsignee();
-		localization = getFormDataLocalization();
-		
-		senderService.saveOrUpdate(sender);
-		consigneeService.saveOrUpdate(consignee);
-		localizationService.saveOrUpdate(localization);
-		
-		if (rbPacote.isSelected()) {
-			packageDelivery = getFormDataPackage();
-			deliveryService.saveOrUpdatePackage(packageDelivery);
+		try {
+			cleanAllErrorsMessages(exception.getErrors());
+			
+			sender = getFormDataSender();
+			consignee = getFormDataConsignee();
+			localization = getFormDataLocalization();
+			
+			if (rbPacote.isSelected()) {
+				delivery = getFormDataPackage();
+			}
+			else if (rbCarta.isSelected()) {
+				delivery = getFormDataLetterDelivery();
+			}
+			else {
+				exception.addError("packageLetter", " Selecione o tipo de entrega");
+			}
+			
+			if(exception.getErrors().size() > 0) throw exception;
+			
+			senderService.saveOrUpdate(sender);
+			consigneeService.saveOrUpdate(consignee);
+			localizationService.saveOrUpdate(localization);
+			deliveryService.saveOrUpdate(delivery);
+			
+			cleanAll();
+			Alerts.showAlert("RapidaEntrega", null, "Salvo com Sucesso!", AlertType.INFORMATION);
 		}
-		else if (rbCarta.isSelected()) {
-			letterDelivery = getFormDataLetterDelivery();
-			deliveryService.saveOrUpdateLetter(letterDelivery);
+		catch (ValidationException e) {
+			setErrorMessages(e.getErrors());
 		}
-		
-		cleanAll();
-		Alerts.showAlert("RápidaEntrega", null, "Salvo com sucesso!", AlertType.CONFIRMATION);
+		catch (DbException e) {
+			Alerts.showAlert("RapidaEntrega", null, "Erro ao salvar no Banco de Dados", AlertType.ERROR);
+		}
 	}
 
 	private void cleanAll() {
@@ -204,6 +245,10 @@ public class CadastroController implements Initializable{
 
 	private Sender getFormDataSender() {
 		Sender obj = new Sender();
+		
+		if (txtRemetente.getText() == null || txtRemetente.getText().trim().equals("")) {
+			exception.addError("sender", " Preencha o campo");
+		}
 		obj.setName(txtRemetente.getText());
 		
 		return obj;
@@ -211,18 +256,42 @@ public class CadastroController implements Initializable{
 	
 	private Consignee getFormDataConsignee() {
 		Consignee obj = new Consignee();
+		
+		if (txtDestinatario.getText() == null || txtDestinatario.getText().trim().equals("")) {
+			exception.addError("consignee", " Preencha o campo");
+		}
 		obj.setName(txtDestinatario.getText());
+		
+		if (txtCPF_CNPJ.getText() == null || txtCPF_CNPJ.getText().trim().equals("")) {
+			exception.addError("personIdentifier", " Preencha o campo");
+		}
 		obj.setPersonIdentifier(txtCPF_CNPJ.getText());
+		
 		if (rbCPF.isSelected()) obj.setTypeOfPersonIdentifier(TypeOfPersonIdentifier.CPF);
 		else if(rbCNPJ.isSelected()) obj.setTypeOfPersonIdentifier(TypeOfPersonIdentifier.CNPJ);
+		else {
+			exception.addError("typeOfPersonIdentifier", " Selecione o tipo de pessoa");
+		}
 		
 		return obj;
 	}
 	
 	private Localization getFormDataLocalization() {
 		Localization obj = new Localization();
+		
+		if (txtPais.getText() == null || txtPais.getText().trim().equals("")) {
+			exception.addError("country", " Preencha o campo");
+		}
 		obj.setCountry(txtPais.getText());
+		
+		if (txtEstado.getText() == null || txtEstado.getText().trim().equals("")) {
+			exception.addError("state", " Preencha o campo");
+		}
 		obj.setState(txtEstado.getText());
+		
+		if (txtCidade.getText() == null || txtCidade.getText().trim().equals("")) {
+			exception.addError("city", " Preencha o campo");
+		}
 		obj.setCity(txtCidade.getText());
 		
 		return obj;
@@ -230,6 +299,10 @@ public class CadastroController implements Initializable{
 	
 	private PackageDelivery getFormDataPackage() {
 		PackageDelivery obj = new PackageDelivery();
+		
+		if (spinnerPeso.getValue().compareTo(0.0) == 0 || spinnerPeso.getValue().equals(null)) {
+			exception.addError("packageLetter", " Adicione um peso");
+		}
 		obj.setWeight(spinnerPeso.getValue());
 		obj.setSender(sender);
 		obj.setConsignee(consignee);
@@ -285,6 +358,32 @@ public class CadastroController implements Initializable{
 		}
 	}
 	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		
+		if (fields.contains("sender")) labelRemetenteError.setText(errors.get("sender"));
+		if (fields.contains("consignee")) labelDestinatarioError.setText(errors.get("consignee"));
+		if (fields.contains("personIdentifier")) labelCPF_CNPJError.setText(errors.get("personIdentifier"));
+		if (fields.contains("typeOfPersonIdentifier")) labelCPF_CNPJError.setText(errors.get("typeOfPersonIdentifier"));
+		if (fields.contains("country")) labelPaisError.setText(errors.get("country"));
+		if (fields.contains("state")) labelEstadoError.setText(errors.get("state"));
+		if (fields.contains("city")) labelCidadeError.setText(errors.get("city"));
+		if (fields.contains("packageLetter")) labelCartaPacoteError.setText(errors.get("packageLetter"));
+	}
+	
+	private void cleanAllErrorsMessages(Map<String, String> errors) {
+		errors.clear();
+		
+		labelRemetenteError.setText("");
+		labelDestinatarioError.setText("");
+		labelCPF_CNPJError.setText("");
+		labelCPF_CNPJError.setText("");
+		labelPaisError.setText("");
+		labelEstadoError.setText("");
+		labelCidadeError.setText("");
+		labelCartaPacoteError.setText("");
+	}
+	
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
 		initializeNodes();
@@ -307,5 +406,7 @@ public class CadastroController implements Initializable{
 		
 		spinnerValue = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, 0);
 		spinnerPeso.setValueFactory(spinnerValue);
+		
+		exception = new ValidationException("Validation error");
 	}
 }
