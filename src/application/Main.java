@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import gui.MainViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,7 +25,10 @@ public class Main extends Application {
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("RapidaEntrega");
+			primaryStage.setResizable(false);
 			primaryStage.show();
+			
+			new MainViewController().onBtnCadastroAction();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

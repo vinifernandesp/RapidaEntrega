@@ -37,10 +37,38 @@ public class DeliveryService {
 			allDeliveries.add(deliveries);
 		}
 
+		allDeliveries.sort((p1, p2) -> p1.getConsignee().getId().compareTo(p2.getConsignee().getId()));
+		
 		return allDeliveries;
 	}
 
 	public void saveOrUpdate(Delivery obj) {
+		if (obj instanceof PackageDelivery) {
+			PackageDelivery packageDelivery = (PackageDelivery) obj;
+		
+			if (packageDelivery.getId() == null) {
+				saveObjects(packageDelivery);
+				daoPackage.insert(packageDelivery);
+			}
+			else {
+				daoPackage.update(packageDelivery);
+			}
+		}
+		
+		else if (obj instanceof LetterDelivery) {
+			LetterDelivery letterDelivery = (LetterDelivery) obj;
+			
+			if (letterDelivery.getId() == null) {
+				saveObjects(letterDelivery);
+				daoLetter.insert(letterDelivery);
+			}
+			else {
+				daoLetter.update(letterDelivery);
+			}
+		}
+	}
+	
+	private void saveObjects(Delivery obj) {
 		List<Sender> senders = daoSender.findAll();
 		obj.getSender().setId(senders.stream()
 				.filter(x -> x.getName().compareTo(obj.getSender().getName()) == 0).findFirst()
@@ -58,27 +86,5 @@ public class DeliveryService {
 				x.getState().compareTo(obj.getLocalization().getState()) == 0 &&
 				x.getCity().compareTo(obj.getLocalization().getCity()) == 0).findFirst()
 				.get().getId());
-		
-		if (obj instanceof PackageDelivery) {
-			PackageDelivery packageDelivery = (PackageDelivery) obj;
-		
-			if (packageDelivery.getId() == null) {
-				daoPackage.insert(packageDelivery);
-			}
-			else {
-				daoPackage.update(packageDelivery);
-			}
-		}
-		
-		else if (obj instanceof LetterDelivery) {
-			LetterDelivery letterDelivery = (LetterDelivery) obj;
-			
-			if (letterDelivery.getId() == null) {
-				daoLetter.insert(letterDelivery);
-			}
-			else {
-				daoLetter.update(letterDelivery);
-			}
-		}
 	}
 }

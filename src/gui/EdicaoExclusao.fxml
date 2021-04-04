@@ -15,20 +15,17 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tableViewEdicaoExclusao" layoutY="74.0" prefHeight="288.0" prefWidth="534.0">
+      <TableView fx:id="tableViewEdicaoExclusao" layoutY="74.0" prefHeight="288.0" prefWidth="528.0">
         <columns>
-          <TableColumn fx:id="tableColumnId" editable="false" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="tableColumnDestinatario" editable="false" prefWidth="75.0" text="Destinatário" />
-            <TableColumn fx:id="tableColumnRemetente" editable="false" prefWidth="75.0" text="Remetente" />
-            <TableColumn fx:id="tableColumnIdEndereco" editable="false" prefWidth="75.0" text="ID Endereço" />
-            <TableColumn fx:id="tableColumnEndereco" editable="false" prefWidth="75.0" text="Endereço" />
+          <TableColumn fx:id="tableColumnId" editable="false" prefWidth="48.00003147125244" text="ID" />
+          <TableColumn fx:id="tableColumnDestinatario" editable="false" prefWidth="118.39995956420898" text="Destinatário" />
+            <TableColumn fx:id="tableColumnRemetente" editable="false" prefWidth="107.20002746582031" text="Remetente" />
+            <TableColumn fx:id="tableColumnEndereco" editable="false" prefWidth="162.39996337890625" text="Endereço" />
+            <TableColumn fx:id="tableColumnEdit" editable="false" prefWidth="86.4000244140625" />
         </columns>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" />
          </padding>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

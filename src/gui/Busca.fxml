@@ -17,31 +17,28 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboBoxFiltro" layoutX="14.0" layoutY="81.0" onAction="#onComboBoxFiltroAction" prefWidth="150.0" />
-      <TextField fx:id="txtPalavraFiltro" layoutX="174.0" layoutY="81.0" prefHeight="26.0" prefWidth="230.0">
+      <ComboBox fx:id="comboBoxFiltro" layoutX="14.0" layoutY="76.0" onAction="#onComboBoxFiltroAction" prefWidth="150.0" />
+      <TextField fx:id="txtPalavraFiltro" layoutX="174.0" layoutY="76.0" prefHeight="26.0" prefWidth="230.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextField>
-      <Button fx:id="btFiltro" layoutX="412.0" layoutY="81.0" mnemonicParsing="false" onAction="#onBtFiltroAction" prefHeight="26.0" prefWidth="107.0" text="Filtrar">
+      <Button fx:id="btFiltro" layoutX="412.0" layoutY="76.0" mnemonicParsing="false" onAction="#onBtFiltroAction" prefHeight="26.0" prefWidth="107.0" text="Filtrar">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Button>
-      <TableView fx:id="tableViewBusca" layoutY="137.0" prefHeight="276.0" prefWidth="534.0">
+      <TableView fx:id="tableViewBusca" layoutX="3.0" layoutY="128.0" prefHeight="285.0" prefWidth="528.0">
         <columns>
-          <TableColumn fx:id="tableColumnId" editable="false" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="tableColumnDestinatario" editable="false" prefWidth="75.0" text="Destinatário" />
-            <TableColumn fx:id="tableColumnRemetente" editable="false" prefWidth="75.0" text="Remetente" />
-            <TableColumn fx:id="tableColumnIdEndereco" editable="false" prefWidth="75.0" text="ID Endereço" />
-            <TableColumn fx:id="tableColumnEndereco" editable="false" prefWidth="75.0" text="Endereço" />
+          <TableColumn fx:id="tableColumnId" editable="false" prefWidth="31.200012922286987" text="ID" />
+          <TableColumn fx:id="tableColumnDestinatario" editable="false" prefWidth="124.0" text="Destinatário" />
+            <TableColumn fx:id="tableColumnRemetente" editable="false" prefWidth="124.0" text="Remetente" />
+            <TableColumn fx:id="tableColumnEndereco" editable="false" prefWidth="165.0" text="Endereço" />
+            <TableColumn fx:id="tableColumnEdit" editable="false" prefWidth="81.5999755859375" />
         </columns>
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" />
+            <Insets bottom="5.0" />
          </padding>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

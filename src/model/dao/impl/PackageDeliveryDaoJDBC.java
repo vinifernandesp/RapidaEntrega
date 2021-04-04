@@ -75,6 +75,7 @@ public class PackageDeliveryDaoJDBC implements PackageDeliveryDao {
 			st.setInt(2, obj.getLocalization().getId());
 			st.setInt(3, obj.getConsignee().getId());
 			st.setInt(4, obj.getSender().getId());
+			st.setInt(5, obj.getId());
 
 			st.executeUpdate();
 		} catch (SQLException e) {

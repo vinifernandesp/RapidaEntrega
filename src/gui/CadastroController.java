@@ -135,6 +135,14 @@ public class CadastroController implements Initializable{
 		this.delivery = delivery;
 	}
 
+	public void setPackageDelivery(PackageDelivery packageDelivery) {
+		this.packageDelivery = packageDelivery;
+	}
+
+	public void setLetterDelivery(LetterDelivery letterDelivery) {
+		this.letterDelivery = letterDelivery;
+	}
+
 	public void setSenderService(SenderService senderService) {
 		this.senderService = senderService;
 	}
@@ -193,15 +201,15 @@ public class CadastroController implements Initializable{
 		try {
 			cleanAllErrorsMessages(exception.getErrors());
 			
-			sender = getFormDataSender();
-			consignee = getFormDataConsignee();
-			localization = getFormDataLocalization();
+			setFormDataSender(sender);
+			setFormDataConsignee(consignee);
+			setFormDataLocalization(localization);
 			
 			if (rbPacote.isSelected()) {
-				delivery = getFormDataPackage();
+				setFormDataPackage(packageDelivery);
 			}
 			else if (rbCarta.isSelected()) {
-				delivery = getFormDataLetterDelivery();
+				setFormDataLetterDelivery(letterDelivery);
 			}
 			else {
 				exception.addError("packageLetter", " Selecione o tipo de entrega");
@@ -222,6 +230,7 @@ public class CadastroController implements Initializable{
 		}
 		catch (DbException e) {
 			Alerts.showAlert("RapidaEntrega", null, "Erro ao salvar no Banco de Dados", AlertType.ERROR);
+			e.printStackTrace();
 		}
 	}
 
@@ -243,20 +252,14 @@ public class CadastroController implements Initializable{
 		labelKg.setVisible(false);
 	}
 
-	private Sender getFormDataSender() {
-		Sender obj = new Sender();
-		
+	private void setFormDataSender(Sender obj) {
 		if (txtRemetente.getText() == null || txtRemetente.getText().trim().equals("")) {
 			exception.addError("sender", " Preencha o campo");
 		}
 		obj.setName(txtRemetente.getText());
-		
-		return obj;
 	}
 	
-	private Consignee getFormDataConsignee() {
-		Consignee obj = new Consignee();
-		
+	private void setFormDataConsignee(Consignee obj) {
 		if (txtDestinatario.getText() == null || txtDestinatario.getText().trim().equals("")) {
 			exception.addError("consignee", " Preencha o campo");
 		}
@@ -272,13 +275,9 @@ public class CadastroController implements Initializable{
 		else {
 			exception.addError("typeOfPersonIdentifier", " Selecione o tipo de pessoa");
 		}
-		
-		return obj;
 	}
 	
-	private Localization getFormDataLocalization() {
-		Localization obj = new Localization();
-		
+	private void setFormDataLocalization(Localization obj) {
 		if (txtPais.getText() == null || txtPais.getText().trim().equals("")) {
 			exception.addError("country", " Preencha o campo");
 		}
@@ -293,13 +292,9 @@ public class CadastroController implements Initializable{
 			exception.addError("city", " Preencha o campo");
 		}
 		obj.setCity(txtCidade.getText());
-		
-		return obj;
 	}
 	
-	private PackageDelivery getFormDataPackage() {
-		PackageDelivery obj = new PackageDelivery();
-		
+	private void setFormDataPackage(PackageDelivery obj) {
 		if (spinnerPeso.getValue().compareTo(0.0) == 0 || spinnerPeso.getValue().equals(null)) {
 			exception.addError("packageLetter", " Adicione um peso");
 		}
@@ -308,19 +303,14 @@ public class CadastroController implements Initializable{
 		obj.setConsignee(consignee);
 		obj.setLocalization(localization);
 		obj.setTypeOfDelivery(TypeOfDelivery.PACKAGE);
-		
-		return obj;
 	}
 	
-	private LetterDelivery getFormDataLetterDelivery() {
-		LetterDelivery obj = new LetterDelivery();
+	private void setFormDataLetterDelivery(LetterDelivery obj) {
 		obj.setEnvelope(rbEnvelope.isSelected());
 		obj.setSender(sender);
 		obj.setConsignee(consignee);
 		obj.setLocalization(localization);
 		obj.setTypeOfDelivery(TypeOfDelivery.LETTER);
-		
-		return obj;
 	}
 	
 	public void updateFormData() {
@@ -332,26 +322,35 @@ public class CadastroController implements Initializable{
 		txtEstado.setText(localization.getState());
 		txtCidade.setText(localization.getCity());
 		txtDestinatario.setText(consignee.getName());
-		txtCPF_CNPJ.setText(consignee.getPersonIdentifier());
+		txtRemetente.setText(sender.getName());
 		
 		if (consignee.getTypeOfPersonIdentifier() == TypeOfPersonIdentifier.CPF) {
 			rbCPF.setSelected(true);
+			onRbCPFAction();
 		}
 		else if (consignee.getTypeOfPersonIdentifier() == TypeOfPersonIdentifier.CNPJ) {
 			rbCNPJ.setSelected(true);
+			onRbCNPJAction();
 		}
+		txtCPF_CNPJ.setText(consignee.getPersonIdentifier());
 		
 		if (delivery instanceof PackageDelivery) {
 			packageDelivery = (PackageDelivery) delivery;
 			
+			onRbPacoteAction();
 			rbPacote.setSelected(true);
+			rbPacote.setDisable(true);
+			rbCarta.setDisable(true);
 			spinnerPeso.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(packageDelivery.getWeight(), 100, 0));
 		}
 		
 		else if (delivery instanceof LetterDelivery) {
 			letterDelivery = (LetterDelivery) delivery;
 			
+			onRbCartaAction();
 			rbCarta.setSelected(true);
+			rbCarta.setDisable(true);
+			rbPacote.setDisable(true);
 			if (letterDelivery.isEnvelope()) {
 				rbEnvelope.setSelected(true);
 			}
@@ -387,6 +386,8 @@ public class CadastroController implements Initializable{
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
 		initializeNodes();
+		
+		exception = new ValidationException("Validation error");
 	}
 
 	private void initializeNodes() {
@@ -406,7 +407,5 @@ public class CadastroController implements Initializable{
 		
 		spinnerValue = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, 0);
 		spinnerPeso.setValueFactory(spinnerValue);
-		
-		exception = new ValidationException("Validation error");
 	}
 }

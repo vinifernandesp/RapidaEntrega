@@ -16,6 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import model.entities.Consignee;
+import model.entities.LetterDelivery;
+import model.entities.Localization;
+import model.entities.PackageDelivery;
+import model.entities.Sender;
 import model.service.ConsigneeService;
 import model.service.DeliveryService;
 import model.service.LocalizationService;
@@ -38,6 +43,11 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onBtnCadastroAction() {
 		loadView("/gui/Cadastro.fxml", (CadastroController controller) -> {
+			controller.setSender(new Sender());
+			controller.setConsignee(new Consignee());
+			controller.setLocalization(new Localization());
+			controller.setPackageDelivery(new PackageDelivery());
+			controller.setLetterDelivery(new LetterDelivery());
 			controller.setSenderService(new SenderService());
 			controller.setConsigneeService(new ConsigneeService());
 			controller.setLocalizationService(new LocalizationService());
@@ -79,7 +89,7 @@ public class MainViewController implements Initializable {
 			T controller = loader.getController();
 			initializingAction.accept(controller);
 		} catch (IOException e) {
-			Alerts.showAlert("Error", null, "Erro de carregamento de Página", AlertType.ERROR);
+			Alerts.showAlert("RapidaEntrega", null, "Erro de carregamento de Página", AlertType.ERROR);
 			e.printStackTrace();
 		}
 	}
