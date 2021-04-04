@@ -35,9 +35,6 @@ public class MainViewController implements Initializable {
 	private Button btnBusca;
 	
 	@FXML
-	private Button btnEdicao;
-	
-	@FXML
 	private Button btnSobre;
 	
 	@FXML
@@ -58,14 +55,6 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onBtnBuscaAction() {
 		loadView("/gui/Busca.fxml", (BuscaController controller) -> {
-			controller.setDeliveryService(new DeliveryService());
-			controller.updateTableView();
-		});
-	}
-
-	@FXML
-	public void onBtnEdicaoAction() {
-		loadView("/gui/EdicaoExclusao.fxml", (EdicaoExclusaoController controller) -> {
 			controller.setDeliveryService(new DeliveryService());
 			controller.updateTableView();
 		});
