@@ -55,6 +55,9 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onBtnBuscaAction() {
 		loadView("/gui/Busca.fxml", (BuscaController controller) -> {
+			controller.setSenderService(new SenderService());
+			controller.setConsigneeService(new ConsigneeService());
+			controller.setLocalizationService(new LocalizationService());
 			controller.setDeliveryService(new DeliveryService());
 			controller.updateTableView();
 		});

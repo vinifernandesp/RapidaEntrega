@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="418.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="418.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="14.0" layoutY="32.0" prefHeight="31.0" prefWidth="98.0" text="Sobre">
+      <Label layoutX="14.0" layoutY="29.0" prefHeight="30.0" prefWidth="98.0" text="Sobre">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -15,7 +15,7 @@
             <Insets left="10.0" />
          </padding>
       </Label>
-      <Label layoutX="14.0" layoutY="118.0" prefHeight="30.0" prefWidth="284.0" text="Software produzido por Vinícius Fernandes">
+      <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="118.0" prefHeight="38.0" prefWidth="590.0" text="Um software produzido por Vinícius Fernandes" wrapText="true">
          <font>
             <Font name="Arial" size="12.0" />
          </font>

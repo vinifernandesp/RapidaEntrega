@@ -3,9 +3,11 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbIntegrityException;
 import gui.util.Alerts;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,14 +17,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -32,62 +35,81 @@ import model.service.DeliveryService;
 import model.service.LocalizationService;
 import model.service.SenderService;
 
-public class BuscaController implements Initializable{
+public class BuscaController implements Initializable {
 
-	private DeliveryService service;
+	private SenderService senderService;
+	private ConsigneeService consigneeService;
+	private LocalizationService localizationService;
+	private DeliveryService deliveryService;
 
 	@FXML
 	private ComboBox<String> comboBoxFiltro;
-	
+
 	@FXML
 	private TextField txtPalavraFiltro;
-	
+
 	@FXML
 	private Button btFiltro;
-	
+
 	@FXML
 	private TableView<Delivery> tableViewBusca;
-	
+
 	@FXML
 	private TableColumn<Delivery, String> tableColumnId;
-	
+
 	@FXML
 	private TableColumn<Delivery, String> tableColumnDestinatario;
-	
+
 	@FXML
 	private TableColumn<Delivery, String> tableColumnRemetente;
-	
+
 	@FXML
 	private TableColumn<Delivery, String> tableColumnEndereco;
-	
+
 	@FXML
 	private TableColumn<Delivery, Delivery> tableColumnEdit;
-	
+
+	@FXML
+	private TableColumn<Delivery, Delivery> tableColumnRemove;
+
 	private ObservableList<Delivery> obsList;
-	
+
+	public void setSenderService(SenderService senderService) {
+		this.senderService = senderService;
+	}
+
+	public void setConsigneeService(ConsigneeService consigneeService) {
+		this.consigneeService = consigneeService;
+	}
+
+	public void setLocalizationService(LocalizationService localizationService) {
+		this.localizationService = localizationService;
+	}
+
+	public void setDeliveryService(DeliveryService deliveryService) {
+		this.deliveryService = deliveryService;
+	}
+
 	@FXML
 	public void onComboBoxFiltroAction() {
 		System.out.println("onComboBoxFiltroAction");
 	}
-	
+
 	@FXML
 	public void onBtFiltroAction() {
 		System.out.println("onBtFiltroAction");
 	}
 
-	public void setDeliveryService(DeliveryService service) {
-		this.service = service;
-	}
-	
 	public void updateTableView() {
-		if (service == null) {
+		if (deliveryService == null) {
 			throw new IllegalStateException("Service was null");
 		}
 
-		List<Delivery> deliveries = service.findAll();
+		List<Delivery> deliveries = deliveryService.findAll();
 		obsList = FXCollections.observableArrayList(deliveries);
 		tableViewBusca.setItems(obsList);
 		initEditButtons();
+		initRemoveButtons();
 	}
 
 	private void initEditButtons() {
@@ -104,10 +126,9 @@ public class BuscaController implements Initializable{
 				}
 				setGraphic(btEditar);
 				btEditar.setPrefHeight(26.0);
-				btEditar.setPrefWidth(65.0);
+				btEditar.setPrefWidth(75.0);
 				btEditar.setFont(new Font("Arial", 12));
-				btEditar.setOnAction(
-						event -> loadView(obj));
+				btEditar.setOnAction(event -> loadView(obj));
 			}
 		});
 	}
@@ -139,11 +160,56 @@ public class BuscaController implements Initializable{
 		}
 	}
 
+	private void initRemoveButtons() {
+		tableColumnRemove.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnRemove.setCellFactory(param -> new TableCell<Delivery, Delivery>() {
+			private final Button btRemover = new Button("Remover");
+
+			@Override
+			protected void updateItem(Delivery obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(btRemover);
+				btRemover.setPrefHeight(26.0);
+				btRemover.setPrefWidth(75.0);
+				btRemover.setFont(new Font("Arial", 12));
+				btRemover.setOnAction(event -> removeEntity(obj));
+			}
+		});
+	}
+
+	private void removeEntity(Delivery obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("Confirmar", "Tem certeza que você quer remover?");
+
+		if (result.get() == ButtonType.OK) {
+			if (deliveryService == null || localizationService == null || consigneeService == null
+					|| senderService == null) {
+				throw new IllegalStateException("Service was null");
+			}
+
+			try {
+				deliveryService.remove(obj);
+				localizationService.remove(obj.getLocalization());
+				consigneeService.remove(obj.getConsignee());
+				senderService.remove(obj.getSender());
+				
+				updateTableView();
+			}
+			catch (DbIntegrityException e) {
+				Alerts.showAlert("RapidaEntrega", null, "Erro ao remover no Banco de Dados", AlertType.ERROR);
+				e.printStackTrace();
+			}
+		}
+	}
+
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
 		initializeTable();
 	}
-	
+
 	private void initializeTable() {
 		tableColumnId.setCellValueFactory(
 				data -> new SimpleStringProperty(data.getValue().getConsignee().getId().toString()));

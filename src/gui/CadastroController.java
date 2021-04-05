@@ -199,6 +199,11 @@ public class CadastroController implements Initializable{
 	@FXML
 	public void onBtSalvarAction() {
 		try {
+			if (deliveryService == null || localizationService == null || consigneeService == null
+					|| senderService == null) {
+				throw new IllegalStateException("Service was null");
+			}
+			
 			cleanAllErrorsMessages(exception.getErrors());
 			
 			setFormDataSender(sender);

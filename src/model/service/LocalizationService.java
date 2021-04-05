@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.LocalizationDao;
+import model.entities.Delivery;
 import model.entities.Localization;
 
 public class LocalizationService {
@@ -28,6 +29,15 @@ public class LocalizationService {
 		
 		else {
 			dao.update(obj);
+		}
+	}
+	
+	public void remove(Localization obj) {
+		List<Delivery> allDeliveries = new DeliveryService().findAll();
+
+		if (allDeliveries.stream().filter(x -> x.getLocalization().getId().compareTo(obj.getId()) == 0).findFirst()
+				.orElse(null) == null) {
+			dao.deleteById(obj.getId());
 		}
 	}
 }

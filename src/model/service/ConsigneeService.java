@@ -5,6 +5,7 @@ import java.util.List;
 import model.dao.ConsigneeDao;
 import model.dao.DaoFactory;
 import model.entities.Consignee;
+import model.entities.Delivery;
 
 public class ConsigneeService {
 
@@ -27,6 +28,15 @@ public class ConsigneeService {
 
 		else {
 			dao.update(obj);
+		}
+	}
+	
+	public void remove(Consignee obj) {
+		List<Delivery> allDeliveries = new DeliveryService().findAll();
+
+		if (allDeliveries.stream().filter(x -> x.getConsignee().getId().compareTo(obj.getId()) == 0).findFirst()
+				.orElse(null) == null) {
+			dao.deleteById(obj.getId());
 		}
 	}
 }

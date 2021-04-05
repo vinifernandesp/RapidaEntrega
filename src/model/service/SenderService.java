@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.SenderDao;
+import model.entities.Delivery;
 import model.entities.Sender;
 
 public class SenderService {
@@ -20,11 +21,21 @@ public class SenderService {
 			Sender search = senders.stream().filter(x -> x.getName().compareTo(obj.getName()) == 0).findFirst()
 					.orElse(null);
 
-			if (search == null) dao.insert(obj);
+			if (search == null)
+				dao.insert(obj);
 		}
 
 		else {
 			dao.update(obj);
+		}
+	}
+
+	public void remove(Sender obj) {
+		List<Delivery> allDeliveries = new DeliveryService().findAll();
+
+		if (allDeliveries.stream().filter(x -> x.getSender().getId().compareTo(obj.getId()) == 0).findFirst()
+				.orElse(null) == null) {
+			dao.deleteById(obj.getId());
 		}
 	}
 }

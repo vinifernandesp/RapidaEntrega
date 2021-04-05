@@ -8,52 +8,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="418.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadastroController">
+<AnchorPane prefHeight="418.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadastroController">
    <children>
       <Label layoutX="14.0" layoutY="29.0" prefHeight="26.0" prefWidth="122.0" text="Localizacão:">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="45.0" layoutY="60.0" text="País:">
+      <Label layoutX="61.0" layoutY="60.0" text="País:">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPais" layoutX="176.0" layoutY="55.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtPais" layoutX="192.0" layoutY="55.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextField>
-      <Label fx:id="labelPaisError" layoutX="395.0" layoutY="62.0" textFill="RED">
+      <Label fx:id="labelPaisError" layoutX="411.0" layoutY="62.0" textFill="RED">
          <font>
             <Font name="Arial" size="10.0" />
          </font>
       </Label>
-      <Label layoutX="45.0" layoutY="93.0" text="Estado:">
+      <Label layoutX="61.0" layoutY="93.0" text="Estado:">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEstado" layoutX="176.0" layoutY="88.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtEstado" layoutX="192.0" layoutY="88.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
-      <Label fx:id="labelEstadoError" layoutX="395.0" layoutY="95.0" textFill="RED">
+      <Label fx:id="labelEstadoError" layoutX="411.0" layoutY="95.0" textFill="RED">
          <font>
             <Font name="Arial" size="10.0" />
          </font>
       </Label>
-      <Label layoutX="45.0" layoutY="127.0" text="Cidade:">
+      <Label layoutX="61.0" layoutY="127.0" text="Cidade:">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtCidade" layoutX="176.0" layoutY="122.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtCidade" layoutX="192.0" layoutY="122.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
-      <Label fx:id="labelCidadeError" layoutX="395.0" layoutY="129.0" textFill="RED">
+      <Label fx:id="labelCidadeError" layoutX="411.0" layoutY="129.0" textFill="RED">
          <font>
             <Font name="Arial" size="10.0" />
          </font>
@@ -63,76 +63,76 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="45.0" layoutY="202.0" text="Nome do Destinatário:">
+      <Label layoutX="61.0" layoutY="202.0" text="Nome do Destinatário:">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtDestinatario" layoutX="175.0" layoutY="198.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtDestinatario" layoutX="191.0" layoutY="198.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextField>
-      <Label fx:id="labelDestinatarioError" layoutX="395.0" layoutY="205.0" textFill="RED">
+      <Label fx:id="labelDestinatarioError" layoutX="411.0" layoutY="205.0" textFill="RED">
          <font>
             <Font name="Arial" size="10.0" />
          </font>
       </Label>
-      <Label layoutX="45.0" layoutY="236.0" text="Nome do Remetente:">
+      <Label layoutX="61.0" layoutY="236.0" text="Nome do Remetente:">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtRemetente" layoutX="175.0" layoutY="231.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtRemetente" layoutX="191.0" layoutY="231.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
-      <Label fx:id="labelRemetenteError" layoutX="395.0" layoutY="238.0" textFill="RED">
+      <Label fx:id="labelRemetenteError" layoutX="411.0" layoutY="238.0" textFill="RED">
          <font>
             <Font name="Arial" size="10.0" />
          </font>
       </Label>
-      <RadioButton fx:id="rbCPF" layoutX="46.0" layoutY="269.0" mnemonicParsing="false" onAction="#onRbCPFAction" text="CPF">
+      <RadioButton fx:id="rbCPF" layoutX="62.0" layoutY="269.0" mnemonicParsing="false" onAction="#onRbCPFAction" text="CPF">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbCNPJ" layoutX="114.0" layoutY="269.0" mnemonicParsing="false" onAction="#onRbCNPJAction" text="CNPJ">
+      <RadioButton fx:id="rbCNPJ" layoutX="130.0" layoutY="269.0" mnemonicParsing="false" onAction="#onRbCNPJAction" text="CNPJ">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <TextField fx:id="txtCPF_CNPJ" editable="false" layoutX="175.0" layoutY="264.0" prefHeight="26.0" prefWidth="219.0">
+      <TextField fx:id="txtCPF_CNPJ" editable="false" layoutX="191.0" layoutY="264.0" prefHeight="26.0" prefWidth="219.0">
          <font>
             <Font name="Arial" size="12.0" />
          </font></TextField>
-      <Label fx:id="labelCPF_CNPJError" layoutX="395.0" layoutY="271.0" textFill="RED">
+      <Label fx:id="labelCPF_CNPJError" layoutX="411.0" layoutY="271.0" textFill="RED">
          <font>
             <Font name="Arial" size="10.0" />
          </font>
       </Label>
-      <RadioButton fx:id="rbCarta" layoutX="45.0" layoutY="302.0" mnemonicParsing="false" onAction="#onRbCartaAction" text="Carta">
+      <RadioButton fx:id="rbCarta" layoutX="61.0" layoutY="302.0" mnemonicParsing="false" onAction="#onRbCartaAction" text="Carta">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbEnvelope" layoutX="175.0" layoutY="302.0" mnemonicParsing="false" text="Envelope" visible="false">
+      <RadioButton fx:id="rbEnvelope" layoutX="191.0" layoutY="302.0" mnemonicParsing="false" text="Envelope" visible="false">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbPacote" layoutX="45.0" layoutY="333.0" mnemonicParsing="false" onAction="#onRbPacoteAction" text="Pacote">
+      <RadioButton fx:id="rbPacote" layoutX="61.0" layoutY="333.0" mnemonicParsing="false" onAction="#onRbPacoteAction" text="Pacote">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </RadioButton>
-      <Spinner fx:id="spinnerPeso" editable="true" layoutX="175.0" layoutY="330.0" visible="false" />
-      <Label fx:id="labelKg" layoutX="333.0" layoutY="341.0" text="kg" visible="false">
+      <Spinner fx:id="spinnerPeso" editable="true" layoutX="191.0" layoutY="330.0" visible="false" />
+      <Label fx:id="labelKg" layoutX="349.0" layoutY="341.0" text="kg" visible="false">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="labelCartaPacoteError" layoutX="395.0" layoutY="337.0" textFill="RED">
+      <Label fx:id="labelCartaPacoteError" layoutX="411.0" layoutY="337.0" textFill="RED">
          <font>
             <Font name="Arial" size="10.0" />
          </font>
@@ -142,7 +142,7 @@
             <Font name="Arial" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btSalvar" layoutX="412.0" layoutY="377.0" onAction="#onBtSalvarAction" prefHeight="26.0" prefWidth="107.0" text="Salvar">
+      <Button fx:id="btSalvar" layoutX="493.0" layoutY="377.0" onAction="#onBtSalvarAction" prefHeight="26.0" prefWidth="107.0" text="Salvar">
          <font>
             <Font name="Arial" size="12.0" />
          </font>

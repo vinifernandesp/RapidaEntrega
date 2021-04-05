@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="536.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
-      <VBox prefHeight="438.0" prefWidth="533.0">
+      <VBox prefHeight="438.0" prefWidth="615.0">
          <children>
-            <HBox blendMode="HARD_LIGHT" prefHeight="20.0" prefWidth="534.0" style="-fx-background-color: #a7a7a7;">
+            <HBox blendMode="HARD_LIGHT" prefHeight="20.0" prefWidth="615.0" style="-fx-background-color: #a7a7a7;">
                <children>
                   <Button fx:id="btnCadastro" mnemonicParsing="false" onAction="#onBtnCadastroAction" style="-fx-background-color: #a7a7a7;" text="Cadastro de Entregas">
                      <HBox.margin>
@@ -26,7 +26,7 @@
                         <Font name="Arial Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnBusca" mnemonicParsing="false" onAction="#onBtnBuscaAction" style="-fx-background-color: #a7a7a7;" text="Busca pro Entrega">
+                  <Button fx:id="btnBusca" mnemonicParsing="false" onAction="#onBtnBuscaAction" style="-fx-background-color: #a7a7a7;" text="Busca por Entrega">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -56,7 +56,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <AnchorPane prefHeight="418.0" prefWidth="534.0">
+            <AnchorPane prefHeight="418.0" prefWidth="615.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor></AnchorPane>
