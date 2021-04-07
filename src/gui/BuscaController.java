@@ -92,20 +92,54 @@ public class BuscaController implements Initializable {
 
 	@FXML
 	public void onComboBoxFiltroAction() {
-		System.out.println("onComboBoxFiltroAction");
+		txtPalavraFiltro.setText("");
+		
+		if (comboBoxFiltro.getValue() == "Todos") {
+			if (deliveryService == null) {
+				throw new IllegalStateException("Service was null");
+			}
+			List<Delivery> deliveries = deliveryService.findAll();
+			updateTableView(deliveries);
+			
+			txtPalavraFiltro.setVisible(false);
+			btFiltro.setVisible(false);
+		}
+		else {
+			txtPalavraFiltro.setVisible(true);
+			btFiltro.setVisible(true);
+		}
 	}
-
+	
 	@FXML
 	public void onBtFiltroAction() {
-		System.out.println("onBtFiltroAction");
-	}
-
-	public void updateTableView() {
 		if (deliveryService == null) {
 			throw new IllegalStateException("Service was null");
 		}
 
 		List<Delivery> deliveries = deliveryService.findAll();
+		String research = txtPalavraFiltro.getText().trim();
+		String typeOfSearch = comboBoxFiltro.getValue();
+		
+		if (typeOfSearch.compareToIgnoreCase("Remetente") == 0) {
+			deliveries.removeIf(x -> x.getSender().getName().compareToIgnoreCase(research) != 0);
+		}
+		else if (typeOfSearch.compareToIgnoreCase("Destinatário") == 0) {
+			deliveries.removeIf(x -> x.getConsignee().getName().compareToIgnoreCase(research) != 0);
+		}
+		else if (typeOfSearch.compareToIgnoreCase("País") == 0) {
+			deliveries.removeIf(x -> x.getLocalization().getCountry().compareToIgnoreCase(research) != 0);
+		}
+		else if (typeOfSearch.compareToIgnoreCase("Estado") == 0) {
+			deliveries.removeIf(x -> x.getLocalization().getState().compareToIgnoreCase(research) != 0);
+		}
+		else if (typeOfSearch.compareToIgnoreCase("Cidade") == 0) {
+			deliveries.removeIf(x -> x.getLocalization().getCity().compareToIgnoreCase(research) != 0);
+		}
+		
+		updateTableView(deliveries);
+	}
+
+	public void updateTableView(List<Delivery> deliveries) {
 		obsList = FXCollections.observableArrayList(deliveries);
 		tableViewBusca.setItems(obsList);
 		initEditButtons();
@@ -195,10 +229,9 @@ public class BuscaController implements Initializable {
 				localizationService.remove(obj.getLocalization());
 				consigneeService.remove(obj.getConsignee());
 				senderService.remove(obj.getSender());
-				
-				updateTableView();
-			}
-			catch (DbIntegrityException e) {
+
+				updateTableView(deliveryService.findAll());
+			} catch (DbIntegrityException e) {
 				Alerts.showAlert("RapidaEntrega", null, "Erro ao remover no Banco de Dados", AlertType.ERROR);
 				e.printStackTrace();
 			}
@@ -211,6 +244,10 @@ public class BuscaController implements Initializable {
 	}
 
 	private void initializeTable() {
+		comboBoxFiltro.setItems(
+				FXCollections.observableArrayList("Todos", "Remetente", "Destinatário", "País", "Estado", "Cidade"));
+		comboBoxFiltro.getSelectionModel().selectFirst();
+
 		tableColumnId.setCellValueFactory(
 				data -> new SimpleStringProperty(data.getValue().getConsignee().getId().toString()));
 		tableColumnDestinatario

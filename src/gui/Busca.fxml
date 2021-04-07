@@ -18,12 +18,12 @@
          </font>
       </Label>
       <ComboBox fx:id="comboBoxFiltro" layoutX="14.0" layoutY="76.0" onAction="#onComboBoxFiltroAction" prefHeight="26.0" prefWidth="163.0" />
-      <TextField fx:id="txtPalavraFiltro" layoutX="247.0" layoutY="75.0" prefHeight="26.0" prefWidth="238.0">
+      <TextField fx:id="txtPalavraFiltro" layoutX="247.0" layoutY="75.0" prefHeight="26.0" prefWidth="238.0" visible="false">
          <font>
             <Font name="Arial" size="12.0" />
          </font>
       </TextField>
-      <Button fx:id="btFiltro" layoutX="493.0" layoutY="75.0" mnemonicParsing="false" onAction="#onBtFiltroAction" prefHeight="26.0" prefWidth="107.0" text="Filtrar">
+      <Button fx:id="btFiltro" layoutX="493.0" layoutY="75.0" mnemonicParsing="false" onAction="#onBtFiltroAction" prefHeight="26.0" prefWidth="107.0" text="Filtrar" visible="false">
          <font>
             <Font name="Arial" size="12.0" />
          </font>

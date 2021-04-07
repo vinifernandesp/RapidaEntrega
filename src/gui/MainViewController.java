@@ -59,7 +59,7 @@ public class MainViewController implements Initializable {
 			controller.setConsigneeService(new ConsigneeService());
 			controller.setLocalizationService(new LocalizationService());
 			controller.setDeliveryService(new DeliveryService());
-			controller.updateTableView();
+			controller.updateTableView(new DeliveryService().findAll());
 		});
 	}
 
