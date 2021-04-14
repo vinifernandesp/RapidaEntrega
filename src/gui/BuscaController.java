@@ -159,7 +159,7 @@ public class BuscaController implements Initializable {
 					return;
 				}
 				setGraphic(btEditar);
-				btEditar.setPrefHeight(26.0);
+				btEditar.setPrefHeight(22.0);
 				btEditar.setPrefWidth(75.0);
 				btEditar.setFont(new Font("Arial", 12));
 				btEditar.setOnAction(event -> loadView(obj));
@@ -207,7 +207,7 @@ public class BuscaController implements Initializable {
 					return;
 				}
 				setGraphic(btRemover);
-				btRemover.setPrefHeight(26.0);
+				btRemover.setPrefHeight(22.0);
 				btRemover.setPrefWidth(75.0);
 				btRemover.setFont(new Font("Arial", 12));
 				btRemover.setOnAction(event -> removeEntity(obj));
@@ -240,12 +240,12 @@ public class BuscaController implements Initializable {
 
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
-		initializeTable();
+		initializeNodes();
 	}
 
-	private void initializeTable() {
+	private void initializeNodes() {
 		comboBoxFiltro.setItems(
-				FXCollections.observableArrayList("Todos", "Remetente", "Destinatário", "País", "Estado", "Cidade"));
+				FXCollections.observableArrayList("Todos", "Destinatário", "Remetente", "País", "Estado", "Cidade"));
 		comboBoxFiltro.getSelectionModel().selectFirst();
 
 		tableColumnId.setCellValueFactory(

@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -24,6 +25,7 @@ public class Main extends Application {
 			
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
+			primaryStage.getIcons().add(new Image("file:resources/images/soon.png"));
 			primaryStage.setTitle("RapidaEntrega");
 			primaryStage.setResizable(false);
 			primaryStage.show();

@@ -66,16 +66,16 @@ public class CadastroController implements Initializable{
 	private Label labelCidadeError;
 	
 	@FXML
-	private TextField txtDestinatario;
-	
-	@FXML
-	private Label labelDestinatarioError;
-	
-	@FXML
 	private TextField txtRemetente;
 	
 	@FXML
 	private Label labelRemetenteError;
+	
+	@FXML
+	private TextField txtDestinatario;
+	
+	@FXML
+	private Label labelDestinatarioError;
 	
 	@FXML
 	private RadioButton rbCPF;
@@ -160,8 +160,8 @@ public class CadastroController implements Initializable{
 	}
 
 	@FXML
-	public void onRbCPFAction() {
-		txtCPF_CNPJ.setEditable(true);
+	public void onRbCPFAction() {		
+		txtCPF_CNPJ.setDisable(false);
 		txtCPF_CNPJ.setText("");
 		
 		MaskFieldUtil.maskCPF(txtCPF_CNPJ);
@@ -169,8 +169,8 @@ public class CadastroController implements Initializable{
 	}
 	
 	@FXML
-	public void onRbCNPJAction() {
-		txtCPF_CNPJ.setEditable(true);
+	public void onRbCNPJAction() {		
+		txtCPF_CNPJ.setDisable(false);
 		txtCPF_CNPJ.setText("");
 		
 		MaskFieldUtil.maskCNPJ(txtCPF_CNPJ);
@@ -212,9 +212,11 @@ public class CadastroController implements Initializable{
 			
 			if (rbPacote.isSelected()) {
 				setFormDataPackage(packageDelivery);
+				delivery = packageDelivery;
 			}
 			else if (rbCarta.isSelected()) {
 				setFormDataLetterDelivery(letterDelivery);
+				delivery = letterDelivery;
 			}
 			else {
 				exception.addError("packageLetter", " Selecione o tipo de entrega");
@@ -243,9 +245,10 @@ public class CadastroController implements Initializable{
 		txtPais.setText("");
 		txtEstado.setText("");
 		txtCidade.setText("");
-		txtDestinatario.setText("");
 		txtRemetente.setText("");
-		txtCPF_CNPJ.setText("");
+		txtDestinatario.setText("");
+		txtCPF_CNPJ.setText("");		
+		txtCPF_CNPJ.setDisable(true);
 		rbCPF.setSelected(false);
 		rbCNPJ.setSelected(false);
 		rbCarta.setSelected(false);
@@ -326,8 +329,8 @@ public class CadastroController implements Initializable{
 		txtPais.setText(localization.getCountry());
 		txtEstado.setText(localization.getState());
 		txtCidade.setText(localization.getCity());
-		txtDestinatario.setText(consignee.getName());
 		txtRemetente.setText(sender.getName());
+		txtDestinatario.setText(consignee.getName());
 		
 		if (consignee.getTypeOfPersonIdentifier() == TypeOfPersonIdentifier.CPF) {
 			rbCPF.setSelected(true);
@@ -399,8 +402,8 @@ public class CadastroController implements Initializable{
 		Constraints.setTextFieldMaxLength(txtCidade, 15);
 		Constraints.setTextFieldMaxLength(txtEstado, 15);
 		Constraints.setTextFieldMaxLength(txtPais, 15);
-		Constraints.setTextFieldMaxLength(txtDestinatario, 30);
 		Constraints.setTextFieldMaxLength(txtRemetente, 30);
+		Constraints.setTextFieldMaxLength(txtDestinatario, 30);
 		
 		groupCPF_CNPJ = new ToggleGroup();
 		rbCPF.setToggleGroup(groupCPF_CNPJ);

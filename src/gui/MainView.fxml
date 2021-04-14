@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="617.0" style="-fx-background-color: #5C5C5C;" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
-      <VBox prefHeight="438.0" prefWidth="615.0">
+      <VBox prefHeight="439.2" prefWidth="615.2" style="-fx-background-color: #5C5C5C;">
          <children>
-            <HBox blendMode="HARD_LIGHT" prefHeight="20.0" prefWidth="615.0" style="-fx-background-color: #a7a7a7;">
+            <HBox blendMode="HARD_LIGHT" prefHeight="20.0" prefWidth="615.0" style="-fx-background-color: #5C5C5C;">
                <children>
-                  <Button fx:id="btnCadastro" mnemonicParsing="false" onAction="#onBtnCadastroAction" style="-fx-background-color: #a7a7a7;" text="Cadastro de Entregas">
+                  <Button fx:id="btnCadastro" mnemonicParsing="false" onAction="#onBtnCadastroAction" styleClass="button2" text=" Cadastro de Entregas">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -26,7 +26,7 @@
                         <Font name="Arial Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnBusca" mnemonicParsing="false" onAction="#onBtnBuscaAction" style="-fx-background-color: #a7a7a7;" text="Busca por Entrega">
+                  <Button fx:id="btnBusca" mnemonicParsing="false" onAction="#onBtnBuscaAction" styleClass="button2" text=" Busca por Entrega">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -37,7 +37,7 @@
                         <Font name="Arial Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnSobre" mnemonicParsing="false" onAction="#onBtnSobreAction" style="-fx-background-color: #a7a7a7;" text="Sobre">
+                  <Button fx:id="btnSobre" mnemonicParsing="false" onAction="#onBtnSobreAction" styleClass="button2" text=" Sobre">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -56,10 +56,13 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </HBox>
-            <AnchorPane prefHeight="418.0" prefWidth="615.0">
+            <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="418.4" prefWidth="615.2" style="-fx-background-color: #000000;">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
-               </cursor></AnchorPane>
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></AnchorPane>
          </children>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
